@@ -1,0 +1,49 @@
+fun rotLeft(a: Array<Int>, d: Int): Array<Int> {
+    var length = a.size
+    var array = arrayOf<Int>()
+    for (i in a.indices) {
+           array += a[i]
+        }
+    var i = 0
+    
+
+    for (j in 1..d) {
+        var temp = arrayOf<Int>()
+        for (i in array.indices) {
+           temp += array[i]
+        }
+        if (j == 1) {
+           for (i in a.indices) {
+           temp += a[i]
+            }
+        }
+        while ( i < length ) {
+            if (i != (length - 1)) {
+                var newI = i + 1
+                var x = temp[newI]
+                array[i] = x
+            } else {
+                var y = temp[0]
+                array[i] = y
+            }
+            i++
+        }
+        i = 0
+    }
+    return array
+}
+
+
+fun main(args: Array<String>) {
+    val first_multiple_input = readLine()!!.trimEnd().split(" ")
+
+    val n = first_multiple_input[0].toInt()
+
+    val d = first_multiple_input[1].toInt()
+
+    val a = readLine()!!.trimEnd().split(" ").map{ it.toInt() }.toTypedArray()
+
+    val result = rotLeft(a, d)
+
+    println(result.joinToString(" "))
+}
