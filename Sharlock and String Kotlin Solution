@@ -1,0 +1,44 @@
+fun isValid(s: String): String {
+    var result = "NO"
+    var seq = s.toCharArray()
+    var arr = mutableListOf<Int>()
+    var map = mutableMapOf<Char, Int>()
+    
+    for (char in seq) {
+        if (map.containsKey(char)) {
+            map.put(char, map.get(char)!! + 1)
+        } else {
+            map.put(char, 1)
+        }
+    }
+    
+    map.forEach { key, value ->
+        arr.add(value)
+        }
+    arr.sort()
+    
+    if (arr.size == 1) { result = "YES" }
+    
+    if (arr.size >1) {
+        var first = arr[0]
+        var second = arr[1]
+        var last = arr[arr.size-1]
+        var secondlast = arr[arr.size-2]
+        if (first == last) { result = "YES"}
+        if (first == 1 && second == last) { result = "YES" }
+        if (first == second && second == secondlast && secondlast == (last-1)) { 
+            result = "YES" }
+    }
+    
+    // println("" + true + first + " " + second + " " + secondlast + " " + (last-1))
+   
+    return result
+}
+
+fun main(args: Array<String>) {
+    val s = readLine()!!
+
+    val result = isValid(s)
+
+    println(result)
+}
