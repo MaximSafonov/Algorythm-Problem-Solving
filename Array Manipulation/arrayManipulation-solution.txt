@@ -1,0 +1,75 @@
+import java.io.*
+import java.math.*
+import java.security.*
+import java.text.*
+import java.util.*
+import java.util.concurrent.*
+import java.util.function.*
+import java.util.regex.*
+import java.util.stream.*
+import kotlin.collections.*
+import kotlin.comparisons.*
+import kotlin.io.*
+import kotlin.jvm.*
+import kotlin.jvm.functions.*
+import kotlin.jvm.internal.*
+import kotlin.ranges.*
+import kotlin.sequences.*
+import kotlin.text.*
+
+/*
+ * Complete the 'arrayManipulation' function below.
+ *
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. 2D_INTEGER_ARRAY queries
+ */
+ 
+//  for (i in queries.indices) {
+//         for (j in queries[i][0]..queries[i][1]) {
+//             arr[j-1] += queries[i][2].toLong()
+//         }
+//     }
+//     arr.sort()
+//     maxValue = arr[arr.size - 1]
+    
+fun arrayManipulation(n: Int, queries: Array<Array<Int>>): Long {
+    var maxValue: Long = 0
+    var arr = Array<Long>(n, { i -> 0 })
+    for (i in queries.indices) {
+        var a = queries[i][0] - 1
+        var b = queries[i][1] - 1
+        var c = queries[i][2].toLong()
+        
+        arr[a] += c
+        if (b + 1 < n) {
+            arr[b + 1] -= c
+        } 
+    }
+    var sum: Long = 0
+    for (i in 0..n-1) {
+      sum += arr[i]
+      maxValue = Math.max(maxValue, sum)
+    }
+    
+    return maxValue
+}
+
+fun main(args: Array<String>) {
+    val first_multiple_input = readLine()!!.trimEnd().split(" ")
+
+    val n = first_multiple_input[0].toInt()
+
+    val m = first_multiple_input[1].toInt()
+
+    val queries = Array<Array<Int>>(m, { Array<Int>(3, { 0 }) })
+
+    for (i in 0 until m) {
+        queries[i] = readLine()!!.trimEnd().split(" ").map{ it.toInt() }.toTypedArray()
+    }
+
+    val result = arrayManipulation(n, queries)
+
+    println(result)
+}

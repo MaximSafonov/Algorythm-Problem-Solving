@@ -1,0 +1,99 @@
+import java.io.*
+import java.math.*
+import java.security.*
+import java.text.*
+import java.util.*
+import java.util.concurrent.*
+import java.util.function.*
+import java.util.regex.*
+import java.util.stream.*
+import kotlin.collections.*
+import kotlin.comparisons.*
+import kotlin.io.*
+import kotlin.jvm.*
+import kotlin.jvm.functions.*
+import kotlin.jvm.internal.*
+import kotlin.ranges.*
+import kotlin.sequences.*
+import kotlin.text.*
+
+// Complete the countTriplets function below.
+fun countTriplets(arr: Array<Long>, r: Long): Long {
+    var result: Long = 0
+    var leftMap = hashMapOf<Long, Long>()
+    var rightMap = hashMapOf<Long, Long>()
+    for (item in arr) {
+        if (rightMap.containsKey(item)) {
+            rightMap.put(item, rightMap.get(item)!! + 1)
+        } else {
+            rightMap.put(item, 1)
+        }
+    }
+    
+    for (i in arr.indices) {
+        var temp = arr[i]
+        var x1 = 0L
+        var x3 = 0L
+        
+        rightMap.put(temp, rightMap.getOrDefault(temp, 0L) - 1)
+        
+        if (leftMap.containsKey(temp / r) && temp % r == 0L) {
+            x1 = leftMap.get(temp / r)!!
+        }
+        
+        if (rightMap.containsKey(temp * r)) {
+            x3 = rightMap.get(temp * r)!!
+        }
+        
+        result += (x1 * x3)
+
+        leftMap.put(temp, leftMap.getOrDefault(temp, 0L) + 1)
+        
+    }
+    
+    // SECOND SOLUTION (5/13 tesc cases failed (for ex 100 of 1))
+    // map.forEach { key, value -> 
+    //     val rPowR = r * r
+    //     if (map.containsKey(key * r) && map.containsKey(key * rPowR)) {
+    //         var count: Long = value.toLong() + map.get(key * r)!!.toLong() + map.get(key * rPowR)                                       !!.toLong()
+    //         result += 1L + count
+    //     }
+    // }
+    
+    // FIRST SOLUTION (TIME EXCEEDED)
+    // for (i in 0..arr.size-3) {
+    //     var temp = 0
+    //     var count = 0L
+    //     for (j in i+1..arr.size-1) {
+    //         if (arr[j] / arr[i] == r) {
+    //             for (y in j+1..arr.size-1) {
+    //                 if (arr[y] / arr[j] == r) {
+    //                     result++
+    //                 }
+    //                 // if (map.containsKey(arr[j])) {
+    //                 // count = arr[j] - 1
+    //                 // }
+    //             }  
+    //         }
+            
+    //     }
+    //     // if (temp.toLong() >= 3) {
+    //     //     result += 1L
+    //     // }
+    // }
+    return result
+}
+
+fun main(args: Array<String>) {
+    val nr = readLine()!!.trimEnd().split(" ")
+
+    val n = nr[0].toInt()
+
+    val r = nr[1].toLong()
+
+    val arr = readLine()!!.trimEnd().split(" ").map{ it.toLong() }.toTypedArray()
+
+    val ans = countTriplets(arr, r)
+
+    println(ans)
+}
