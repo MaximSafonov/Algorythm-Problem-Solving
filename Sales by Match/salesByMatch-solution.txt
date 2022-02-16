@@ -1,0 +1,56 @@
+import java.io.*
+import java.math.*
+import java.security.*
+import java.text.*
+import java.util.*
+import java.util.concurrent.*
+import java.util.function.*
+import java.util.regex.*
+import java.util.stream.*
+import kotlin.collections.*
+import kotlin.comparisons.*
+import kotlin.io.*
+import kotlin.jvm.*
+import kotlin.jvm.functions.*
+import kotlin.jvm.internal.*
+import kotlin.ranges.*
+import kotlin.sequences.*
+import kotlin.text.*
+
+/*
+ * Complete the 'sockMerchant' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. INTEGER_ARRAY ar
+ */
+
+fun sockMerchant(n: Int, ar: Array<Int>): Int {
+    var resultMap = mutableMapOf<Int, Int>()
+    var temp: Int
+    for (item in ar) {
+        temp = 0
+        for (i in 1..n) {
+             if (item == ar[i-1]){
+            temp++
+            }
+        }
+            resultMap.put(item, temp)
+    }
+    var result: Int = 0
+    for ((_, value) in resultMap) {
+    result += value/2
+    }
+    return result
+}
+
+fun main(args: Array<String>) {
+    val n = readLine()!!.trim().toInt()
+
+    val ar = readLine()!!.trimEnd().split(" ").map{ it.toInt() }.toTypedArray()
+
+    val result = sockMerchant(n, ar)
+
+    println(result)
+}
