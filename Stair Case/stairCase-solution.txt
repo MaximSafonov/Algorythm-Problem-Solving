@@ -1,0 +1,53 @@
+import java.io.
+import java.math.
+import java.security.
+import java.text.
+import java.util.
+import java.util.concurrent.
+import java.util.function.
+import java.util.regex.
+import java.util.stream.
+import kotlin.collections.
+import kotlin.comparisons.
+import kotlin.io.
+import kotlin.jvm.
+import kotlin.jvm.functions.
+import kotlin.jvm.internal.
+import kotlin.ranges.
+import kotlin.sequences.
+import kotlin.text.
+
+
+  Complete the 'staircase' function below.
+ 
+  The function accepts INTEGER n as parameter.
+ 
+
+fun staircase(n Int) Unit {
+   var spaceCount = n - 1
+   var gridCount = 1
+   var space =  
+   var grid = #
+   
+   for (i in 1..n) {
+       var string = 
+       var string2 = 
+       for (j in 1..spaceCount) {
+           string = string + space
+       }
+       for (u in 1..gridCount) {
+           string2 = string2 + grid
+       }
+    
+        var result = string + string2
+        spaceCount--
+        gridCount++
+        println(result)
+   }    
+}
+
+fun main(args ArrayString) {
+    val n = readLine()!!.trim().toInt()
+
+    staircase(n)
+}
