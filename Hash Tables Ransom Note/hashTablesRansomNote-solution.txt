@@ -1,0 +1,78 @@
+import java.io.*
+import java.math.*
+import java.security.*
+import java.text.*
+import java.util.*
+import java.util.concurrent.*
+import java.util.function.*
+import java.util.regex.*
+import java.util.stream.*
+import kotlin.collections.*
+import kotlin.comparisons.*
+import kotlin.io.*
+import kotlin.jvm.*
+import kotlin.jvm.functions.*
+import kotlin.jvm.internal.*
+import kotlin.ranges.*
+import kotlin.sequences.*
+import kotlin.text.*
+
+/*
+ * Complete the 'checkMagazine' function below.
+ *
+ * The function accepts following parameters:
+ *  1. STRING_ARRAY magazine
+ *  2. STRING_ARRAY note
+ */
+
+fun checkMagazine(magazine: Array<String>, note: Array<String>): Unit {
+    var magazineMap = mutableMapOf<String, Int>()
+    var noteMap = mutableMapOf<String, Int>()
+    var yes = true
+    
+    for (item in magazine) {
+        if(!magazineMap.containsKey(item)) {
+            magazineMap.put(item, 0)
+        } else {
+            magazineMap.put(item, magazineMap.get(item)!! + 1)
+        }
+    }
+    
+    for (word in note) {
+        if(!noteMap.containsKey(word)) {
+            noteMap.put(word, 0)
+        } else {
+            noteMap.put(word, noteMap.get(word)!! + 1)
+        }
+    }
+    
+    for (string in noteMap.keys) {
+        var needed = noteMap.get(string)
+        if (!magazineMap.containsKey(string)) {
+            yes = false
+        } 
+        if (needed!! > magazineMap.get(string) ?: 0) {
+            yes = false 
+        }
+    }
+    
+    when (yes) {
+        true -> println("Yes")
+        false -> println("No")
+    }
+
+}
+
+fun main(args: Array<String>) {
+    val first_multiple_input = readLine()!!.trimEnd().split(" ")
+
+    val m = first_multiple_input[0].toInt()
+
+    val n = first_multiple_input[1].toInt()
+
+    val magazine = readLine()!!.trimEnd().split(" ").toTypedArray()
+
+    val note = readLine()!!.trimEnd().split(" ").toTypedArray()
+
+    checkMagazine(magazine, note)
+}
