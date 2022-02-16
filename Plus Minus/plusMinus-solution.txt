@@ -1,0 +1,58 @@
+import java.io.*
+import java.math.*
+import java.security.*
+import java.text.*
+import java.util.*
+import java.util.concurrent.*
+import java.util.function.*
+import java.util.regex.*
+import java.util.stream.*
+import kotlin.collections.*
+import kotlin.comparisons.*
+import kotlin.io.*
+import kotlin.jvm.*
+import kotlin.jvm.functions.*
+import kotlin.jvm.internal.*
+import kotlin.ranges.*
+import kotlin.sequences.*
+import kotlin.text.*
+
+/*
+ * Complete the 'plusMinus' function below.
+ *
+ * The function accepts INTEGER_ARRAY arr as parameter.
+ */
+
+fun plusMinus(arr: Array<Int>): Unit { 
+    var posCount: Double = 0.0
+    var negCount: Double = 0.0
+    var zerCount: Double = 0.0
+    
+    for (item in arr) {
+        // when (item) {
+        //     > 0 -> posCount++
+        //     < 0 -> negCount++
+        //     == 0 -> zerCount++
+        // }
+        if (item > 0) posCount++
+        if (item < 0) negCount++
+        if (item == 0) zerCount++
+    }
+    
+    var posRatio: Double = posCount / arr.size
+    var negRatio: Double = negCount / arr.size
+    var zerRatio: Double = zerCount / arr.size
+    
+    println(posRatio)
+    println(negRatio)
+    println(zerRatio)
+
+}
+
+fun main(args: Array<String>) {
+    val n = readLine()!!.trim().toInt()
+
+    val arr = readLine()!!.trimEnd().split(" ").map{ it.toInt() }.toTypedArray()
+
+    plusMinus(arr)
+}
